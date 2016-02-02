@@ -5,17 +5,31 @@ import TestSpan from "./TestSpan";
 
 class App extends React.Component {
 
+
+
+
     constructor(props) {
         super(props)
+        this.openSettings = this.openSettings.bind(this);
+        this.sessionConfig = new weaveui.SessionEditorConfig();
 
+    }
+    openSettings(e){
+        if(e.code === "Enter"){
+            this.sessionConfig.modalConfig.open.value = true;
+        }else if(e.code === "KeyQ"){
+                 this.sessionConfig.modalConfig.open.value = false;
+        }
     }
 
     componentDidMount(){
         this.props.root.childListCallbacks.addImmediateCallback(this,this.forceUpdate);
+        window.addEventListener('keydown', this.openSettings);
     }
 
     componentWillUnMount(){
         this.props.root.childListCallbacks.removeCallback(this,this.forceUpdate);
+        window.removeEventListener('keydown', this.openSettings);
     }
 
 
@@ -39,7 +53,7 @@ class App extends React.Component {
         }
 
         return (<div>
-                    <weaveui.SessionEditor sessionState={ this.props.root}/>
+                    <weaveui.SessionEditor sessionState={ this.props.root} keyPress="true" settings={this.sessionConfig}/>
                     {this.props.children}
                     {toolUI}
                 </div>

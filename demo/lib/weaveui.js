@@ -113,9 +113,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SessionEditor).call(this, props));
 
-	        _this.settings = new _SessionEditorConfig2.default();
+	        _this.settings = _this.props.settings ? _this.props.settings : new _SessionEditorConfig2.default();
 	        _this.nodeClick = _this.nodeClick.bind(_this);
 	        _this.changeSessionValue = _this.changeSessionValue.bind(_this);
+	        _this.tree = weavejs.WeaveAPI.SessionManager.getSessionStateTree(_this.props.sessionState);
+	        _this.tree.label = "Weave";
 	        _this.nodeValue = "";
 	        _this.selectedData;
 	        return _this;
@@ -126,8 +128,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function componentDidMount() {
 	            Weave.getCallbacks(this.settings).addGroupedCallback(this, this.forceUpdate);
 	            this.settings.activeNodeValue.addImmediateCallback(this, this.forceUpdate);
-	            this.tree = weavejs.WeaveAPI.SessionManager.getSessionStateTree(this.props.sessionState);
-	            this.tree.label = "Weave";
+
 	            Weave.getCallbacks(this.tree).addGroupedCallback(this, this.forceUpdate);
 	        }
 	    }, {

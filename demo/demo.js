@@ -135,18 +135,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function App(props) {
 	        _classCallCheck(this, App);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+
+	        _this.openSettings = _this.openSettings.bind(_this);
+	        _this.sessionConfig = new _weaveui2.default.SessionEditorConfig();
+
+	        return _this;
 	    }
 
 	    _createClass(App, [{
+	        key: "openSettings",
+	        value: function openSettings(e) {
+	            if (e.code === "Enter") {
+	                this.sessionConfig.modalConfig.open.value = true;
+	            } else if (e.code === "KeyQ") {
+	                this.sessionConfig.modalConfig.open.value = false;
+	            }
+	        }
+	    }, {
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
 	            this.props.root.childListCallbacks.addImmediateCallback(this, this.forceUpdate);
+	            window.addEventListener('keydown', this.openSettings);
 	        }
 	    }, {
 	        key: "componentWillUnMount",
 	        value: function componentWillUnMount() {
 	            this.props.root.childListCallbacks.removeCallback(this, this.forceUpdate);
+	            window.removeEventListener('keydown', this.openSettings);
 	        }
 	    }, {
 	        key: "render",
@@ -170,7 +186,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return _react2.default.createElement(
 	                "div",
 	                null,
-	                _react2.default.createElement(_weaveui2.default.SessionEditor, { sessionState: this.props.root }),
+	                _react2.default.createElement(_weaveui2.default.SessionEditor, { sessionState: this.props.root, keyPress: "true", settings: this.sessionConfig }),
 	                this.props.children,
 	                toolUI
 	            );

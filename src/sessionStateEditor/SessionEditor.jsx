@@ -7,9 +7,11 @@ class SessionEditor extends React.Component {
 
   constructor(props) {
     super(props);
-    this.settings =  new SessionEditorConfig();
+    this.settings =  this.props.settings?this.props.settings:new SessionEditorConfig();
     this.nodeClick = this.nodeClick.bind(this);
     this.changeSessionValue = this.changeSessionValue.bind(this);
+    this.tree =  weavejs.WeaveAPI.SessionManager.getSessionStateTree(this.props.sessionState);
+    this.tree.label = "Weave";
     this.nodeValue = "";
     this.selectedData;
   }
@@ -17,8 +19,7 @@ class SessionEditor extends React.Component {
   componentDidMount(){
     Weave.getCallbacks(this.settings).addGroupedCallback(this, this.forceUpdate);
     this.settings.activeNodeValue.addImmediateCallback(this, this.forceUpdate);
-    this.tree =  weavejs.WeaveAPI.SessionManager.getSessionStateTree(this.props.sessionState);
-    this.tree.label = "Weave";
+
     Weave.getCallbacks(this.tree).addGroupedCallback(this, this.forceUpdate);
   }
 
