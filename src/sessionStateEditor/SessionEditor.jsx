@@ -77,7 +77,7 @@ class SessionEditor extends React.Component {
          padding:"4px"
     }
 
-    return ( <weavereact.Modal settings={this.settings.modalConfig}>
+    return ( <weavereact.Modal settings={this.settings.modalConfig} keyPress="true">
                 <div style={{display:"inline-block",width:"100%"}}>
                     <div style={treeContainerStyle}>
                         {treeUI}

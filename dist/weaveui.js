@@ -189,7 +189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            return React.createElement(
 	                weavereact.Modal,
-	                { settings: this.settings.modalConfig },
+	                { settings: this.settings.modalConfig, keyPress: "true" },
 	                React.createElement(
 	                    "div",
 	                    { style: { display: "inline-block", width: "100%" } },
