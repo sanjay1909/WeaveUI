@@ -1,6 +1,4 @@
 {
-  "stage": 1,
-  "optional": ["runtime"],
-  "loose": ["all"],
-  "plugins": ["dev-expression"]
+    "presets": ["es2015", "react"],
+    "plugins": ["transform-object-rest-spread"]
 }
