@@ -226,13 +226,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        Object.defineProperties(this, {
 
 	            "treeConfig": {
-	                value: Weave.linkableChild(this, new weavereact.TreeConfig())
+	                value: new weavereact.TreeConfig()
 	            },
 	            showTree: {
 	                value: new weavejs.core.LinkableBoolean(false)
 	            },
 	            activeNodeValue: {
 	                value: new weavejs.core.LinkableVariable()
+	            },
+	            modalConfig: {
+	                value: new weavereact.ModalConfig()
 	            }
 
 	        });
@@ -247,8 +250,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    SessionEditorConfig.prototype.getDataType = function (treeItem) {
 	        return treeItem.data.FLEXJS_CLASS_INFO.names[0].qName;
 	    };
-
-	    Weave.registerClass('weaveui.SessionEditorConfig', SessionEditorConfig);
 
 	    module.exports = SessionEditorConfig;
 	})(module);

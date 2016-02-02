@@ -7,13 +7,16 @@
         Object.defineProperties(this, {
 
             "treeConfig": {
-                value: Weave.linkableChild(this, new weavereact.TreeConfig())
+                value: new weavereact.TreeConfig()
             },
             showTree: {
                 value: new weavejs.core.LinkableBoolean(false)
             },
             activeNodeValue: {
                 value: new weavejs.core.LinkableVariable()
+            },
+            modalConfig: {
+                value: new weavereact.ModalConfig()
             }
 
         });
@@ -33,7 +36,6 @@
     }
 
 
-    Weave.registerClass('weaveui.SessionEditorConfig', SessionEditorConfig);
 
     module.exports = SessionEditorConfig;
 
