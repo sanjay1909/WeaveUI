@@ -31,7 +31,7 @@ gulp.task("demo", ["demoDev"], function (cb) {
 
 
     gulp.src(["./dist/*.js", "./dist/*.map"])
-        .pipe(gulp.dest("demo/libs/WeaveUI"));
+        .pipe(gulp.dest("demo/lib/"));
 
     var webpackConfig = require("../../webpack.config.demo.js");
     var myConfig = Object.create(webpackConfig);

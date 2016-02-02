@@ -2,12 +2,12 @@
     "name": "weaveui",
     "version": "1.0.0",
     "description": "components built with react and Weave",
-    "main": "build/dist/weaveui.js",
+    "main": "dist/weaveui.js",
     "directories": {
-        "build": "build"
+        "dist": "dist/"
     },
     "files": [
-    "build"
+    "dist"
     ],
     "scripts": {
 
