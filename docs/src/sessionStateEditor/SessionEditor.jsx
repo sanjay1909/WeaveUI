@@ -1,0 +1,97 @@
+import React from "react";
+//import weavereact from "weavereact";
+//import weavejs from "weavejs";
+import SessionEditorConfig from "./SessionEditorConfig";
+
+
+
+class SessionEditor extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.settings =  new SessionEditorConfig();
+    this.nodeClick = this.nodeClick.bind(this);
+    this.changeSessionValue = this.changeSessionValue.bind(this);
+    this.nodeValue = "";
+    this.selectedData;
+  }
+
+  componentDidMount(){
+    Weave.getCallbacks(this.settings).addGroupedCallback(this, this.forceUpdate);
+    this.settings.activeNodeValue.addImmediateCallback(this, this.forceUpdate);
+    this.tree =  weavejs.WeaveAPI.SessionManager.getSessionStateTree(this.props.sessionState);
+    this.tree.label = "Weave";
+    Weave.getCallbacks(this.tree).addGroupedCallback(this, this.forceUpdate);
+  }
+
+  componentWillUnmount () {
+    Weave.getCallbacks(this.settings).removeCallback(this, this.forceUpdate);
+    this.settings.activeNodeValue.removeCallback(this, this.forceUpdate);
+
+    Weave.getCallbacks(this.tree).removeCallback(this, this.forceUpdate);
+  }
+
+
+  nodeClick(node){
+    if(node.children){
+
+    }else{
+        this.selectedData =  node.data;
+        this.settings.activeNodeValue.state =  node.data.value;
+    }
+  }
+
+  changeSessionValue(e){
+    this.selectedData.state = e.target.value;
+    this.settings.activeNodeValue.state = e.target.value;
+    this.forceUpdate()
+  }
+
+  render() {
+
+    var treeUI = "";
+    if(this.tree){
+        treeUI = <Tree data={this.tree} label="label" nodes="children"  clickCallback={this.nodeClick} settings={this.settings.treeConfig}/>
+    }
+
+    var treeContainerStyle = {
+        width:"48%",
+        height:"100%",
+        borderStyle:"solid",
+        borderRadius:"2px",
+        borderWidth:"1px",
+        borderColor:"grey",
+        float:"left",
+        overflowY: 'scroll',
+        overflowX: 'scroll',
+        padding:"4px"
+    }
+    var resultContainerStyle = {
+        width:"48%",
+         height:"100%",
+        borderStyle:"solid",
+        borderRadius:"2px",
+        borderWidth:"1px",
+        borderColor:"grey",
+        float:"right",
+        overflowY: 'scroll',
+        overflowX: 'scroll',
+         padding:"4px"
+    }
+
+    return ( <Modal settings={this.settings.modalConfig}>
+                <div style={{display:"inline-block",width:"100%"}}>
+                    <div style={treeContainerStyle}>
+                        {treeUI}
+                    </div>
+                    <span style={resultContainerStyle}>
+                        <textarea style={{width:"100%",height:"100%",border:"none"}} value={this.settings.activeNodeValue.state} onChange={this.changeSessionValue}/>
+                    </span>
+                </div>
+
+            </Modal>
+            );
+    }
+
+}
+export default SessionEditor;

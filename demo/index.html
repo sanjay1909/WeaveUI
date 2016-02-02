@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>React Weave Components Demo</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        .fa-pointer {
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id='testElm' />
+
+
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <script type="text/javascript" src="./libs/weave/WeaveJS.js"></script>
+    <script>
+        new WeaveJS().start();
+    </script>
+    <script type="text/javascript" src="./libs/WeaveReact/weavereact.js"></script>
+    <script type="text/javascript" src="./libs/WeaveUI/weaveui.js"></script>
+    <script type="text/javascript" src="demo.js"></script>
+    <script>
+        var weave = new Weave();
+        weaveuidemo.init("testElm", weave.root);
+    </script>
+    <script>
+    </script>
+
+</body>
+
+</html>
