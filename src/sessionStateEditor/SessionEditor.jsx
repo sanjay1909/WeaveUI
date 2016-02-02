@@ -1,6 +1,4 @@
-import React from "react";
-import weavereact from "weavereact";
-import weavejs from "weavejs";
+
 import SessionEditorConfig from "./SessionEditorConfig";
 
 

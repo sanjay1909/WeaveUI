@@ -32,9 +32,6 @@ module.exports = {
     externals: {
         "react": "React",
         "react-dom": "ReactDOM",
-        "d3": "d3",
-        "c3": "c3",
-        "_": "lodash",
         "weavejs": "weavejs",
         "Weave": "Weave",
         "weavereact": "weavereact"

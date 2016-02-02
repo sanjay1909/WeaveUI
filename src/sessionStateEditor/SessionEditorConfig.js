@@ -1,8 +1,3 @@
-import weavejs from "weavejs";
-import weavereact from "weavereact";
-import Weave from "Weave";
-
-
 (function (module) {
 
 
