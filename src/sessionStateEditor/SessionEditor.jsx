@@ -1,6 +1,6 @@
 
 import SessionEditorConfig from "./SessionEditorConfig";
-
+import weavereact from "weavereact";
 
 
 class SessionEditor extends React.Component {
@@ -63,7 +63,7 @@ class SessionEditor extends React.Component {
       var  folder;
       folder = zip.folder(weavejs.core.WeaveArchive.FOLDER_FILES);
       for (name in archive.files)
-        folder.file(name, this.files[name]);
+        folder.file(name, archive.files[name]);
       folder = zip.folder(weavejs.core.WeaveArchive.FOLDER_JSON);
       for (name in archive.objects)
         folder.file(name, JSON.stringify(archive.objects[name]));

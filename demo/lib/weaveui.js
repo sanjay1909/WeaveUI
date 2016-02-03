@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
+		module.exports = factory(require("weavereact"));
 	else if(typeof define === 'function' && define.amd)
-		define([], factory);
+		define(["weavereact"], factory);
 	else if(typeof exports === 'object')
-		exports["weaveui"] = factory();
+		exports["weaveui"] = factory(require("weavereact"));
 	else
-		root["weaveui"] = factory();
-})(this, function() {
+		root["weaveui"] = factory(root["weavereact"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_4__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -64,7 +64,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _SessionEditorConfig2 = _interopRequireDefault(_SessionEditorConfig);
 
-	var _App = __webpack_require__(4);
+	var _App = __webpack_require__(5);
 
 	var _App2 = _interopRequireDefault(_App);
 
@@ -96,6 +96,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _SessionEditorConfig = __webpack_require__(2);
 
 	var _SessionEditorConfig2 = _interopRequireDefault(_SessionEditorConfig);
+
+	var _weavereact = __webpack_require__(4);
+
+	var _weavereact2 = _interopRequireDefault(_weavereact);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -176,7 +180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var folder;
 	            folder = zip.folder(weavejs.core.WeaveArchive.FOLDER_FILES);
 	            for (name in archive.files) {
-	                folder.file(name, this.files[name]);
+	                folder.file(name, archive.files[name]);
 	            }folder = zip.folder(weavejs.core.WeaveArchive.FOLDER_JSON);
 	            for (name in archive.objects) {
 	                folder.file(name, JSON.stringify(archive.objects[name]));
@@ -218,7 +222,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            var treeUI = "";
 	            if (this.tree) {
-	                treeUI = React.createElement(weavereact.Tree, { data: this.tree, label: "label", nodes: "children", clickCallback: this.nodeClick, settings: this.settings.treeConfig, dataTypesMap: this.settings.dataTypesMap, getDataType: this.settings.getDataType });
+	                treeUI = React.createElement(_weavereact2.default.Tree, { data: this.tree, label: "label", nodes: "children", clickCallback: this.nodeClick, settings: this.settings.treeConfig, dataTypesMap: this.settings.dataTypesMap, getDataType: this.settings.getDataType });
 	            }
 
 	            var treeContainerStyle = {
@@ -267,13 +271,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            };
 
 	            return React.createElement(
-	                weavereact.Modal,
+	                _weavereact2.default.Modal,
 	                { settings: this.settings.modalConfig, keyPress: "true", title: "Session State Editor" },
 	                React.createElement(
 	                    "div",
 	                    { style: { height: "90%", width: "100%", display: "flex", position: "relative", overflow: "hidden" } },
 	                    React.createElement(
-	                        weavereact.SplitPane,
+	                        _weavereact2.default.SplitPane,
 	                        { split: "vertical", minSize: "50", defaultSize: "100" },
 	                        React.createElement(
 	                            "div",
@@ -328,6 +332,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
 
+	var _weavereact = __webpack_require__(4);
+
+	var _weavereact2 = _interopRequireDefault(_weavereact);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	(function (module) {
 
 	    function SessionEditorConfig() {
@@ -335,7 +345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        Object.defineProperties(this, {
 
 	            "treeConfig": {
-	                value: new weavereact.TreeConfig()
+	                value: new _weavereact2.default.TreeConfig()
 	            },
 	            showTree: {
 	                value: new weavejs.core.LinkableBoolean(false)
@@ -344,7 +354,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                value: new weavejs.core.LinkableVariable()
 	            },
 	            modalConfig: {
-	                value: new weavereact.ModalConfig()
+	                value: new _weavereact2.default.ModalConfig()
 	            }
 
 	        });
@@ -352,7 +362,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.dataTypesMap = {
 	            "weavejs.core.LinkableString": "S",
 	            "weavejs.core.LinkableNumber": "N",
-	            "weavejs.core.LinkableBoolean": "B"
+	            "weavejs.core.LinkableBoolean": "B",
+	            "weavejs.data.source.WeaveDataSource": "fa fa-database"
+
 	        };
 	    }
 
@@ -382,6 +394,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";

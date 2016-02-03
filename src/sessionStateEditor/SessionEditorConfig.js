@@ -1,3 +1,4 @@
+import weavereact from "weavereact";
 (function (module) {
 
 
@@ -24,7 +25,9 @@
         this.dataTypesMap = {
             "weavejs.core.LinkableString": "S",
             "weavejs.core.LinkableNumber": "N",
-            "weavejs.core.LinkableBoolean": "B"
+            "weavejs.core.LinkableBoolean": "B",
+            "weavejs.data.source.WeaveDataSource": "fa fa-database"
+
         }
 
 
