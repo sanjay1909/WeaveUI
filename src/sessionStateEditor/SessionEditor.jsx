@@ -1,5 +1,6 @@
 
 import SessionEditorConfig from "./SessionEditorConfig";
+import React from "react";
 import weavereact from "weavereact";
 
 
