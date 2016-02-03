@@ -1,6 +1,5 @@
 import React from "react";
 import weaveui from "weaveui";
-import TestSpan from "./TestSpan";
 
 
 class App extends React.Component {
@@ -46,8 +45,6 @@ class App extends React.Component {
             if(ToolClass){
                 ui = <ToolClass settings={sessionObj} index={i}  key={i}/>
 
-            }else{
-               ui =  <TestSpan settings={sessionObj} index={i}  key={i}/>
             }
             toolUI.push(ui);
         }

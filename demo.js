@@ -74,6 +74,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	_weavejs2.default.util.JS.JSZip = JSZip;
+
 	exports.init = function (container, session) {
 	    _reactDom2.default.render(React.createElement(_App2.default, { root: session
 	    }), document.getElementById(container));
@@ -116,10 +118,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _weaveui = __webpack_require__(6);
 
 	var _weaveui2 = _interopRequireDefault(_weaveui);
-
-	var _TestSpan = __webpack_require__(7);
-
-	var _TestSpan2 = _interopRequireDefault(_TestSpan);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -177,8 +175,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var ui;
 	                if (ToolClass) {
 	                    ui = _react2.default.createElement(ToolClass, { settings: sessionObj, index: i, key: i });
-	                } else {
-	                    ui = _react2.default.createElement(_TestSpan2.default, { settings: sessionObj, index: i, key: i });
 	                }
 	                toolUI.push(ui);
 	            }
@@ -209,74 +205,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(5);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TestSpan = function (_React$Component) {
-	    _inherits(TestSpan, _React$Component);
-
-	    function TestSpan(props) {
-	        _classCallCheck(this, TestSpan);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TestSpan).call(this, props));
-
-	        _this.settings = _this.props.settings;
-
-	        return _this;
-	    }
-
-	    _createClass(TestSpan, [{
-	        key: "componentDidMount",
-	        value: function componentDidMount() {
-	            this.settings.addImmediateCallback(this, this.forceUpdate);
-	        }
-	    }, {
-	        key: "componentWillUnMount",
-	        value: function componentWillUnMount() {
-	            this.settings.removeCallback(this, this.forceUpdate);
-	        }
-	    }, {
-	        key: "render",
-	        value: function render() {
-
-	            return _react2.default.createElement(
-	                "div",
-	                null,
-	                _react2.default.createElement(
-	                    "span",
-	                    null,
-	                    this.settings.state
-	                )
-	            );
-	        }
-	    }]);
-
-	    return TestSpan;
-	}(_react2.default.Component);
-
-	exports.default = TestSpan;
 
 /***/ }
 /******/ ])

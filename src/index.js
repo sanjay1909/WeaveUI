@@ -5,7 +5,7 @@ import App from "./App";
 
 
 
-
+weavejs.util.JS.JSZip = JSZip;
 
 exports.init = function (container, session) {
     ReactDOM.render( < App root = {
