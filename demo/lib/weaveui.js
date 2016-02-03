@@ -116,6 +116,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this.settings = _this.props.settings ? _this.props.settings : new _SessionEditorConfig2.default();
 	        _this.nodeClick = _this.nodeClick.bind(_this);
 	        _this.changeSessionValue = _this.changeSessionValue.bind(_this);
+	        _this.saveFile = _this.saveFile.bind(_this);
+	        _this.textAreaChange = _this.textAreaChange.bind(_this);
 	        _this.tree = weavejs.WeaveAPI.SessionManager.getSessionStateTree(_this.props.sessionState);
 	        _this.tree.label = "Weave";
 	        _this.nodeValue = "";
@@ -127,30 +129,86 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
 	            Weave.getCallbacks(this.settings).addGroupedCallback(this, this.forceUpdate);
+	            weavejs.WeaveAPI.SessionManager.addTreeCallback(this, this.forceUpdate);
 	            this.settings.activeNodeValue.addImmediateCallback(this, this.forceUpdate);
-
-	            Weave.getCallbacks(this.tree).addGroupedCallback(this, this.forceUpdate);
 	        }
 	    }, {
 	        key: "componentWillUnmount",
 	        value: function componentWillUnmount() {
 	            Weave.getCallbacks(this.settings).removeCallback(this, this.forceUpdate);
 	            this.settings.activeNodeValue.removeCallback(this, this.forceUpdate);
-
-	            Weave.getCallbacks(this.tree).removeCallback(this, this.forceUpdate);
+	            weavejs.WeaveAPI.SessionManager.removeTreeCallback(this, this.forceUpdate);
+	            // Weave.getCallbacks(this.tree).removeCallback(this, this.forceUpdate);
 	        }
 	    }, {
 	        key: "nodeClick",
 	        value: function nodeClick(node) {
-	            if (node.children) {} else {
-	                this.selectedData = node.data;
-	                this.settings.activeNodeValue.state = node.data.value;
-	            }
+	            this.selectedData = node.data;
+	            var sessionState = Weave.getState(node.data);
+	            var sessionStateAsString = Weave.stringify(sessionState, null, 3);
+	            this.settings.activeNodeValue.state = sessionStateAsString;
 	        }
 	    }, {
 	        key: "changeSessionValue",
 	        value: function changeSessionValue(e) {
-	            this.selectedData.state = e.target.value;
+	            var value = this.refs["sessionView"].value;
+	            var ss = this.selectedData.state; //to identify the state of the object so that view wont affect
+	            if (typeof ss !== 'number' && typeof ss !== 'string' && typeof ss !== 'boolean') {
+	                value = JSON.parse(this.refs["sessionView"].value);
+	                Weave.setState(this.selectedData, value);
+	            } else {
+	                this.selectedData.state = value;
+	            }
+
+	            this.forceUpdate();
+	        }
+	    }, {
+	        key: "saveFile",
+	        value: function saveFile() {
+	            var archive = weavejs.core.WeaveArchive.createArchive(weave);
+	            window.saveAs(this.serialize(archive), "test.weave");
+	        }
+	    }, {
+	        key: "serialize",
+	        value: function serialize(archive) {
+	            var zip = new weavejs.util.JS.JSZip();
+	            var name;
+	            var folder;
+	            folder = zip.folder(weavejs.core.WeaveArchive.FOLDER_FILES);
+	            for (name in archive.files) {
+	                folder.file(name, this.files[name]);
+	            }folder = zip.folder(weavejs.core.WeaveArchive.FOLDER_JSON);
+	            for (name in archive.objects) {
+	                folder.file(name, JSON.stringify(archive.objects[name]));
+	            }return zip.generate({ type: 'blob' });
+	        }
+	    }, {
+	        key: "openFile",
+	        value: function openFile(e) {
+	            var selectedfile = e.target.files[0];
+	            // Build Promise List, each promise resolved by FileReader.onload.
+
+	            new Promise(function (resolve, reject) {
+	                var reader = new FileReader();
+
+	                reader.onload = function (event) {
+	                    // Resolve both the FileReader result and its original file.
+	                    resolve([event, selectedfile]);
+	                };
+
+	                // Read the file.
+	                reader.readAsArrayBuffer(selectedfile);
+	            }).then(function (zippedResults) {
+	                // Run the callback after all files have been read.
+	                var e = zippedResults[0];
+	                var result = e.target.result;
+	                // read the content of the file with JSZip
+	                weavejs.core.WeaveArchive.loadFileContent(weave, result);
+	            });
+	        }
+	    }, {
+	        key: "textAreaChange",
+	        value: function textAreaChange(e) {
 	            this.settings.activeNodeValue.state = e.target.value;
 	            this.forceUpdate();
 	        }
@@ -164,46 +222,96 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 
 	            var treeContainerStyle = {
-	                width: "72%",
+	                width: "100%",
 	                height: "100%",
 	                borderStyle: "solid",
-	                borderRadius: "2px",
+	                borderRadius: "4px",
 	                borderWidth: "1px",
 	                borderColor: "grey",
-	                float: "left",
 	                overflowY: 'scroll',
 	                overflowX: 'scroll',
 	                padding: "4px"
 	            };
 	            var resultContainerStyle = {
-	                width: "24%",
+	                width: "100%",
 	                height: "100%",
 	                borderStyle: "solid",
-	                borderRadius: "2px",
+	                borderRadius: "4px",
 	                borderWidth: "1px",
 	                borderColor: "grey",
-	                float: "right",
 	                overflowY: 'scroll',
 	                overflowX: 'scroll',
 	                padding: "4px"
 	            };
+	            var applyButtonStyle = {
+	                marginTop: "4px",
+	                marginLeft: "2px",
+	                borderStyle: "solid",
+	                borderRadius: "4px",
+	                borderWidth: "1px",
+	                borderColor: "grey",
+	                float: "right",
+	                padding: "4px",
+	                cursor: "pointer",
+	                fontSize: "12px",
+	                position: "relative"
+	            };
+	            var inputButtonStyle = {
+	                width: "100%",
+	                opacity: "0",
+	                overflow: "hidden",
+	                position: "absolute",
+	                left: "0",
+	                top: "2px",
+	                bottom: "2px"
+	            };
 
 	            return React.createElement(
 	                weavereact.Modal,
-	                { settings: this.settings.modalConfig, keyPress: "true" },
+	                { settings: this.settings.modalConfig, keyPress: "true", title: "Session State Editor" },
 	                React.createElement(
 	                    "div",
-	                    { style: { display: "inline-block", width: "100%" } },
+	                    { style: { height: "90%", width: "100%", display: "flex", position: "relative", overflow: "hidden" } },
 	                    React.createElement(
-	                        "div",
-	                        { style: treeContainerStyle },
-	                        treeUI
-	                    ),
-	                    React.createElement(
-	                        "span",
-	                        { style: resultContainerStyle },
-	                        React.createElement("textarea", { style: { width: "100%", height: "100%", border: "none" }, value: this.settings.activeNodeValue.state, onChange: this.changeSessionValue })
+	                        weavereact.SplitPane,
+	                        { split: "vertical", minSize: "50", defaultSize: "100" },
+	                        React.createElement(
+	                            "div",
+	                            { style: treeContainerStyle },
+	                            treeUI
+	                        ),
+	                        React.createElement(
+	                            "div",
+	                            { style: resultContainerStyle },
+	                            React.createElement("textarea", { ref: "sessionView", style: { width: "100%", height: "100%", border: "none" }, value: this.settings.activeNodeValue.state, onChange: this.textAreaChange })
+	                        )
 	                    )
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { style: applyButtonStyle, onClick: this.changeSessionValue },
+	                    " Apply "
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { style: applyButtonStyle, onClick: this.saveFile },
+	                    React.createElement(
+	                        "i",
+	                        { className: "fa fa-fw fa-download" },
+	                        " "
+	                    ),
+	                    " Download "
+	                ),
+	                React.createElement(
+	                    "div",
+	                    { style: applyButtonStyle },
+	                    React.createElement("input", { onChange: this.openFile, type: "file", style: inputButtonStyle }),
+	                    React.createElement(
+	                        "i",
+	                        { className: "fa fa-fw fa-upload" },
+	                        " "
+	                    ),
+	                    " Uplaod"
 	                )
 	            );
 	        }
