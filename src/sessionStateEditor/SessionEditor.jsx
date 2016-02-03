@@ -40,10 +40,10 @@ class SessionEditor extends React.Component {
   }
 
   changeSessionValue(e){
-        var value = this.refs["sessionView"].value;
+        var value = this.settings.activeNodeValue.state;
         var ss = this.selectedData.state ;//to identify the state of the object so that view wont affect
         if((typeof(ss) !== 'number' ) && (typeof(ss) !== 'string' ) && (typeof(ss) !== 'boolean' )){
-            value = JSON.parse(this.refs["sessionView"].value);
+            value = JSON.parse(value);
             Weave.setState(this.selectedData,value);
         }else{
            this.selectedData.state = value;
@@ -161,7 +161,7 @@ class SessionEditor extends React.Component {
                             {treeUI}
                         </div>
                         <div style={resultContainerStyle}>
-                            <textarea ref="sessionView" style={{width:"100%",height:"100%",border:"none"}} value={this.settings.activeNodeValue.state} onChange={this.textAreaChange} />
+                            <textarea style={{width:"100%",height:"100%",border:"none"}} value={this.settings.activeNodeValue.state} onChange={this.textAreaChange} />
                         </div>
                     </weavereact.SplitPane>
                 </div>

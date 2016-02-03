@@ -151,10 +151,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: "changeSessionValue",
 	        value: function changeSessionValue(e) {
-	            var value = this.refs["sessionView"].value;
+	            var value = this.settings.activeNodeValue.state;
 	            var ss = this.selectedData.state; //to identify the state of the object so that view wont affect
 	            if (typeof ss !== 'number' && typeof ss !== 'string' && typeof ss !== 'boolean') {
-	                value = JSON.parse(this.refs["sessionView"].value);
+	                value = JSON.parse(value);
 	                Weave.setState(this.selectedData, value);
 	            } else {
 	                this.selectedData.state = value;
@@ -283,7 +283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        React.createElement(
 	                            "div",
 	                            { style: resultContainerStyle },
-	                            React.createElement("textarea", { ref: "sessionView", style: { width: "100%", height: "100%", border: "none" }, value: this.settings.activeNodeValue.state, onChange: this.textAreaChange })
+	                            React.createElement("textarea", { style: { width: "100%", height: "100%", border: "none" }, value: this.settings.activeNodeValue.state, onChange: this.textAreaChange })
 	                        )
 	                    )
 	                ),
