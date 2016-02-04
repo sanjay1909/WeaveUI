@@ -1,4 +1,3 @@
-import weavejs from "weavejs";
 import weavereact from "weavereact";
 (function (module) {
 

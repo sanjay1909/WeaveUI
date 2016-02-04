@@ -30,6 +30,7 @@ module.exports = {
 		new webpack.NoErrorsPlugin()
 	],
     externals: [
+        "weavereact",
         {
             'react': {
                 root: 'React',
@@ -45,23 +46,9 @@ module.exports = {
                 commonjs: 'react-dom',
                 amd: 'react-dom'
             }
-        },
-        {
-            "weavejs": {
-                root: 'weavejs'
-            }
-        },
-        {
-            "Weave": {
-                root: 'Weave'
-            }
-        },
-        {
-            "weavereact": {
-                root: 'weavereact',
-                commonjs: 'weavereact'
-            }
         }
+
+
     ],
     resolve: {
         extensions: ["", ".js", ".jsx", ".scss", ".md"]
