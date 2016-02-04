@@ -25,7 +25,7 @@ function build(myConfig, cb) {
     });
 }
 
-gulp.task("build", ["dev"], function (cb) {
+gulp.task("build", ["clean", "dev"], function (cb) {
     var webpackConfig = require("../../webpack.config.js");
     var myConfig = Object.create(webpackConfig);
     myConfig.output.filename = myConfig.output.filename.replace(".js", ".min.js");

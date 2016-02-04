@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("weavereact"), require("react"));
+		module.exports = factory(require("weavereact"), require("React"));
 	else if(typeof define === 'function' && define.amd)
-		define(["weavereact", "react"], factory);
+		define(["weavereact", "React"], factory);
 	else if(typeof exports === 'object')
-		exports["weaveui"] = factory(require("weavereact"), require("react"));
+		exports["weaveui"] = factory(require("weavereact"), require("React"));
 	else
 		root["weaveui"] = factory(root["weavereact"], root["React"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__) {
@@ -76,8 +76,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.getToolForConfigName = function (name) {
 	    if (_App2.default.getToolImplementation(name)) {
 	        return _App2.default.getToolImplementation(name);
-	    } else {
-	        console.warn("No Tool is registered for " + name);
 	    }
 	};
 

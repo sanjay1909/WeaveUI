@@ -10,8 +10,6 @@ exports.SessionEditorConfig = SessionEditorConfig;
 exports.getToolForConfigName = function (name) {
     if (App.getToolImplementation(name)) {
         return App.getToolImplementation(name);
-    } else {
-        console.warn("No Tool is registered for " + name);
     }
 
 }
