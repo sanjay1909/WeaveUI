@@ -5,9 +5,7 @@
     "main": "dist/weaveui.js",
     "dependencies": {},
     "devDependencies": {},
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
+    "scripts": {},
     "repository": {
         "type": "git",
         "url": "git+https://github.com/sanjay1909/WeaveUI.git"
@@ -16,12 +14,15 @@
     "weavreact",
     "ui"
   ],
-    "peerDependencies": {
-
-        "react": "^0.14.3",
-        "react-dom": "^0.14.3"
+    "directories": {
+        "dist": "dist/"
     },
-    "dependencies": {
+    "files": [
+    "dist"
+    ],
+    "peerDependencies": {
+        "react": "^0.14.3",
+        "react-dom": "^0.14.3",
         "weavereact": "git+https://github.com/sanjay1909/WeaveReact.git"
     },
     "devDependencies": {
