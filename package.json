@@ -22,7 +22,9 @@
     ],
     "peerDependencies": {
         "react": "^0.14.3",
-        "react-dom": "^0.14.3",
+        "react-dom": "^0.14.3"
+    },
+    "dependencies": {
         "weavereact": "git+https://github.com/sanjay1909/WeaveReact.git"
     },
     "devDependencies": {
