@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require(undefined), require(undefined), require("react"));
+		module.exports = factory(require("weavereact"), require("react"));
 	else if(typeof define === 'function' && define.amd)
-		define([, , "react"], factory);
+		define(["weavereact", "react"], factory);
 	else if(typeof exports === 'object')
-		exports["weaveui"] = factory(require(undefined), require("weavereact"), require("react"));
+		exports["weaveui"] = factory(require("weavereact"), require("react"));
 	else
-		root["weaveui"] = factory(root["weavejs"], root["weavereact"], root["React"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__) {
+		root["weaveui"] = factory(root["weavereact"], root["React"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -64,7 +64,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _SessionEditorConfig2 = _interopRequireDefault(_SessionEditorConfig);
 
-	var _App = __webpack_require__(7);
+	var _App = __webpack_require__(6);
 
 	var _App2 = _interopRequireDefault(_App);
 
@@ -97,11 +97,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _SessionEditorConfig2 = _interopRequireDefault(_SessionEditorConfig);
 
-	var _react = __webpack_require__(6);
+	var _react = __webpack_require__(5);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _weavereact = __webpack_require__(5);
+	var _weavereact = __webpack_require__(4);
 
 	var _weavereact2 = _interopRequireDefault(_weavereact);
 
@@ -336,11 +336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
 
-	var _weavejs = __webpack_require__(4);
-
-	var _weavejs2 = _interopRequireDefault(_weavejs);
-
-	var _weavereact = __webpack_require__(5);
+	var _weavereact = __webpack_require__(4);
 
 	var _weavereact2 = _interopRequireDefault(_weavereact);
 
@@ -356,10 +352,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                value: new _weavereact2.default.TreeConfig()
 	            },
 	            showTree: {
-	                value: new _weavejs2.default.core.LinkableBoolean(false)
+	                value: new weavejs.core.LinkableBoolean(false)
 	            },
 	            activeNodeValue: {
-	                value: new _weavejs2.default.core.LinkableVariable()
+	                value: new weavejs.core.LinkableVariable()
 	            },
 	            modalConfig: {
 	                value: new _weavereact2.default.ModalConfig()
@@ -414,12 +410,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
-
-/***/ },
-/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
