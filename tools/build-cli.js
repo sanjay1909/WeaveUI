@@ -2,11 +2,8 @@
 
 import 'colors';
 import build from './build';
-import docs from '../docs/build';
-import {
-    setExecOptions
-}
-from './exec';
+//import docs from '../docs/build';
+import exec from './exec';
 
 import yargs from 'yargs';
 
@@ -28,7 +25,7 @@ const argv = yargs
     })
     .argv;
 
-setExecOptions(argv);
+exec.setExecOptions(argv);
 
 let buildProcess;
 

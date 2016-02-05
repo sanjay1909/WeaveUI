@@ -1,19 +1,19 @@
 {
-    "name": "<%= pkg.name %>",
-    "version": "<%= pkg.version %>",
-    "homepage": "<%= pkg.homepage %>",
-    "author": "<%= pkg.author %>",
-    "license": "<%= pkg.license %>",
-    "main": [
-    "weaveui.js"
+  "name": "<%= pkg.name %>",
+  "version": "<%= pkg.version %>",
+  "homepage": "<%= pkg.homepage %>",
+  "author": "<%= pkg.author %>",
+  "license": "<%= pkg.license %>",
+  "main": [
+    "react-bootstrap.js"
   ],
-    "keywords": [
+  "keywords": [
     <%= _.map(pkg.keywords, function(keyword) { return '"' + keyword + '"' }).join(',\n    ')%>
   ],
-    "ignore": [
+  "ignore": [
     "**/.*"
   ],
-    "dependencies": {
-        "react": "<%= pkg.peerDependencies.react %>"
-    }
+  "dependencies": {
+    "react": "<%= pkg.peerDependencies.react %>"
+  }
 }

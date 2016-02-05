@@ -2,4 +2,13 @@
 .DS_Store
 npm-debug.log*
 node_modules
-/.publish
+amd/
+!tools/amd/
+!tools/lib/
+dist/
+!tools/dist/
+docs-built/
+tmp-bower-repo/
+tmp-docs-repo/
+.babel-cache/
+.coverage/
