@@ -38,13 +38,15 @@ class SessionEditor extends React.Component {
 
   changeSessionValue(e){
         var value = this.settings.activeNodeValue.state;
-        var ss = this.selectedData.state ;//to identify the state of the object so that view wont affect
-        if((typeof(ss) !== 'number' ) && (typeof(ss) !== 'string' ) && (typeof(ss) !== 'boolean' )){
+       // var ss = this.selectedData.state ;//to identify the state of the object so that view wont affect
+        value = JSON.parse(value);
+        Weave.setState(this.selectedData,value);
+       /* if((typeof(ss) !== 'number' ) && (typeof(ss) !== 'string' ) && (typeof(ss) !== 'boolean' )){
             value = JSON.parse(value);
             Weave.setState(this.selectedData,value);
         }else{
            this.selectedData.state = value;
-        }
+        }*/
 
         this.forceUpdate();
   }
@@ -83,10 +85,7 @@ class SessionEditor extends React.Component {
             });
     }
 
-  textAreaChange(e){
-        this.settings.activeNodeValue.state = e.target.value;
-        this.forceUpdate()
-  }
+
 
   render() {
 
@@ -119,7 +118,7 @@ class SessionEditor extends React.Component {
 
                 <div style={{height:"90%",width:"100%",display: "flex", position: "relative", overflow: "hidden"}}>
                     <weavereact.SplitPane split="vertical" minSize="50" defaultSize="100">
-                    <TreeSection tree={this.tree} settings={this.settings} nodeClick={this.nodeClick}/>
+                        <TreeSection tree={this.tree} settings={this.settings} nodeClick={this.nodeClick}/>
                         <NodeView activeNodeValue={this.settings.activeNodeValue}/>
                     </weavereact.SplitPane>
                 </div>
