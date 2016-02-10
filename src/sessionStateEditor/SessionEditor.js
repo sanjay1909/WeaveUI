@@ -5,7 +5,7 @@ import TreeSection from "./TreeSection";
 import NodeView from "./NodeView";
 
 
-class SessionEditor extends React.Component {
+export default class SessionEditor extends React.Component {
 
   constructor(props) {
     super(props);
@@ -30,23 +30,22 @@ class SessionEditor extends React.Component {
 
  nodeClick(node){
         this.selectedData = node.data;
-        var sessionState = Weave.getState(node.data);
-        var sessionStateAsString = Weave.stringify(sessionState,null,3);
-        this.settings.activeNodeValue.state = sessionStateAsString;
+        var state = Weave.getState(node.data);
+        var str;
+        if (node.data instanceof weavejs.core.LinkableString)
+        	str = state;
+        else
+        	str = Weave.stringify(state, null, '\t', true);
+        this.settings.activeNodeValue.state = str;
   }
 
 
   changeSessionValue(e){
         var value = this.settings.activeNodeValue.state;
-       // var ss = this.selectedData.state ;//to identify the state of the object so that view wont affect
-        value = JSON.parse(value);
-        Weave.setState(this.selectedData,value);
-       /* if((typeof(ss) !== 'number' ) && (typeof(ss) !== 'string' ) && (typeof(ss) !== 'boolean' )){
-            value = JSON.parse(value);
-            Weave.setState(this.selectedData,value);
-        }else{
-           this.selectedData.state = value;
-        }*/
+        if (this.selectedData instanceof weavejs.core.LinkableString)
+        	this.selectedData.value = value;
+        else
+        	Weave.setState(this.selectedData, JSON.parse(value));
 
         this.forceUpdate();
   }
@@ -117,16 +116,16 @@ class SessionEditor extends React.Component {
     return ( <weavereact.Modal settings={this.settings.modalConfig} keyPress="true" title="Session State Editor">
 
                 <div style={{height:"90%",width:"100%",display: "flex", position: "relative", overflow: "hidden"}}>
-                    <weavereact.SplitPane split="vertical" minSize="50" defaultSize="100">
+                    <weavereact.SplitPane split="vertical" minSize="50" defaultSize="256">
                         <TreeSection tree={this.tree} settings={this.settings} nodeClick={this.nodeClick}/>
                         <NodeView activeNodeValue={this.settings.activeNodeValue}/>
                     </weavereact.SplitPane>
                 </div>
                 <div style={applyButtonStyle} onClick={this.changeSessionValue}> Apply </div>
-                <div style={applyButtonStyle} onClick={this.saveFile}>< i className = "fa fa-fw fa-download"  > < /i > Download </div>
+                <div style={applyButtonStyle} onClick={this.saveFile}>< i className = "fa fa-fw fa-download"  > < /i > Save </div>
                 <div style={applyButtonStyle}>
                     <input onChange={this.openFile} type='file' style={inputButtonStyle}/>
-                    < i className = "fa fa-fw fa-upload"  > < /i > Uplaod
+                    < i className = "fa fa-fw fa-upload"  > < /i > Load
                 </div>
 
             </weavereact.Modal>
@@ -134,4 +133,3 @@ class SessionEditor extends React.Component {
     }
 
 }
-export default SessionEditor;
