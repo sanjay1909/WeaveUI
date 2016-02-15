@@ -1,4 +1,6 @@
-import weavereact from "weavereact";
+import {TreeConfig} from "weavereact";
+import {ModalConfig} from "weavereact";
+
 (function (module) {
 
 
@@ -8,7 +10,7 @@ import weavereact from "weavereact";
         Object.defineProperties(this, {
 
             "treeConfig": {
-                value: new weavereact.TreeConfig()
+                value: new TreeConfig()
             },
             showTree: {
                 value: new weavejs.core.LinkableBoolean(false)
@@ -17,8 +19,8 @@ import weavereact from "weavereact";
                 value: new weavejs.core.LinkableVariable()
             },
             modalConfig: {
-                value: new weavereact.ModalConfig()
-            }
+                value: new ModalConfig()
+            },
 
         });
 
@@ -33,8 +35,8 @@ import weavereact from "weavereact";
 
     }
 
-
-    SessionEditorConfig.prototype.getDataType = function (treeItem) {
+    var p = SessionEditorConfig.prototype;
+    p.getDataType = function (treeItem) {
         return treeItem.data.FLEXJS_CLASS_INFO.names[0].qName;
     }
 

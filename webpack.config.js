@@ -36,5 +36,10 @@ module.exports = {
     },
     resolve: {
         extensions: ["", ".js", ".jsx", ".scss", ".md"]
-    }
+    },
+    devtool: "sourcemap",
+    debug:true
+
 };
+
+

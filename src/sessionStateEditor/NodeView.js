@@ -1,5 +1,4 @@
 import React from "react";
-import weavereact from "weavereact";
 
 
 class NodeView extends React.Component {
