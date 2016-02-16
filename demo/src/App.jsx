@@ -35,7 +35,7 @@ class App extends React.Component {
 
 
         return (<div>
-                    <weaveui.SessionEditor root={this.props.root} keyPress="true" settings={this.sessionConfig}/>
+                    <weaveui.SessionEditor isDashboard={false} weave={this.props.weave} keyPress="true" settings={this.sessionConfig}/>
                     {this.props.children}
                 </div>
         );

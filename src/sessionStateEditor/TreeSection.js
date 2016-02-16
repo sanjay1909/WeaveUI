@@ -11,11 +11,11 @@ class TreeSection extends React.Component {
   }
 
   componentDidMount(){
-    Weave.getCallbacks(this.props.tree).addGroupedCallback(this, this.forceUpdate);
+    if(this.props.tree)Weave.getCallbacks(this.props.tree).addGroupedCallback(this, this.forceUpdate);
   }
 
   componentWillUnmount () {
-    Weave.getCallbacks(this.props.tree).removeCallback(this, this.forceUpdate);
+    if(this.props.tree)Weave.getCallbacks(this.props.tree).removeCallback(this, this.forceUpdate);
   }
 
     componentWillReceiveProps(nextProps){

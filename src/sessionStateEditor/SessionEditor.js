@@ -11,8 +11,8 @@ export default class SessionEditor extends React.Component {
     constructor(props) {
         super(props);
         this.settings =  this.props.settings?this.props.settings:new SessionEditorConfig();
-        this.tree =  weavejs.WeaveAPI.SessionManager.getSessionStateTree(this.props.root);
-        this.tree.label = "Weave";
+        this.tree =  weavejs.WeaveAPI.SessionManager.getSessionStateTree(this.props.weave.root);
+        this.tree.label = this.props.isDashboard?"WeaveDashboard":"Weave";
 
         this.changeSessionValue = this.changeSessionValue.bind(this);
         this.nodeClick = this.nodeClick.bind(this);
@@ -58,10 +58,13 @@ export default class SessionEditor extends React.Component {
   }
 
   saveFile(){
-    var archive  = weavejs.core.WeaveArchive.createArchive(weave)
+    var archive  = weavejs.core.WeaveArchive.createArchive(this.props.weave)
     var uint8Array = archive.serialize();
     var arrayBuffer  = uint8Array.buffer;
-    window.saveAs(new Blob([arrayBuffer]), "test.weave");
+    if(this.props.isDashboard)
+        window.saveAs(new Blob([arrayBuffer]), "dashboardTest.weavedb");
+    else
+        window.saveAs(new Blob([arrayBuffer]), "test.weave");
   }
 
 
@@ -91,9 +94,9 @@ export default class SessionEditor extends React.Component {
                 var result = e.target.result;
                 // read the content of the file with JSZip
 
-                weavejs.core.WeaveArchive.loadFileContent(weave,result);
-                that.tree =  weavejs.WeaveAPI.SessionManager.getSessionStateTree(that.props.root);
-                that.tree.label = "Weave";
+                weavejs.core.WeaveArchive.loadFileContent(that.props.weave,result);
+                that.tree =  weavejs.WeaveAPI.SessionManager.getSessionStateTree(that.props.weave.root);
+                that.tree.label = that.props.isDashboard?"WeaveDashboard":"Weave";
                 that.selectedData = null ;// to-do:try with linkableWatcher and add forceUpdate to that watcher
                 that.forceUpdate();
             });
