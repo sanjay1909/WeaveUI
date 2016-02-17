@@ -32,7 +32,14 @@ export default class SessionEditor extends React.Component {
 
 
     componentWillReceiveProps(nextProps){
-
+        if(this.props.settings !== nextProps.settings){
+            this.settings = nextProps.settings;
+        }
+        if(this.props.weave !== nextProps.weave){
+            this.tree =  weavejs.WeaveAPI.SessionManager.getSessionStateTree(nextProps.weave.root);
+            this.tree.label = nextProps.isDashboard?"WeaveDashboard":"Weave";
+            this.selectedData = null ;
+        }
     }
 
     nodeClick(node){
@@ -132,7 +139,7 @@ export default class SessionEditor extends React.Component {
     }
 
 
-    return ( <Modal settings={this.settings.modalConfig} keyPress="true" title="Session State Editor">
+    return ( <Modal settings={this.settings.modalConfig} keyPress="true" title={this.props.title}>
 
                 <div style={{height:"90%",width:"100%",display: "flex", position: "relative", overflow: "hidden"}}>
                     <SplitPane split="vertical" minSize="50" defaultSize="256">
