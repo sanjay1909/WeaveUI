@@ -5,7 +5,7 @@ import App from "./App";
 
 
 
-exports.init = function (container, session) {
-    ReactDOM.render( <App root = {session}/> , document.getElementById(container)
+exports.init = function (container) {
+    ReactDOM.render( <App/> , document.getElementById(container)
     );
 }

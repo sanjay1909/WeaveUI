@@ -10,14 +10,25 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         this.openSettings = this.openSettings.bind(this);
-        this.sessionConfig = new weaveui.SessionEditorConfig();
+        window.weave = new Weave();
+        window.dbWeave = new Weave();
+
+        this.sessionConfigDashdoard = new weaveui.SessionEditorConfig();
+        this.sessionConfigWeave = new weaveui.SessionEditorConfig();
 
     }
-    openSettings(e){
-        if(e.code === "Enter"){
-            this.sessionConfig.modalConfig.open.value = true;
-        }else if(e.code === "KeyQ"){
-                 this.sessionConfig.modalConfig.open.value = false;
+    openSettings(e) {
+        if (e.code === "KeyD") {
+            if(this.sessionConfigWeave.modalConfig.open.value)  this.sessionConfigWeave.modalConfig.open.value= false;
+            this.sessionConfigDashdoard.modalConfig.open.value = true;
+            this.popUpSessionEditor( this.sessionConfigDashdoard,window.dbWeave,"Session State Editor (Weave Dasboard)",true)
+        } else if (e.code === "KeyW") {
+            if(this.sessionConfigDashdoard.modalConfig.open.value)  this.sessionConfigDashdoard.modalConfig.open.value= false;
+            this.sessionConfigWeave.modalConfig.open.value = true;
+            this.popUpSessionEditor( this.sessionConfigWeave,weave,"Session State Editor (Weave)",false)
+        } else if (e.code === "KeyQ") {
+            this.sessionConfigWeave.modalConfig.open.value = false;
+            this.sessionConfigDashdoard.modalConfig.open.value = false;
         }
     }
 
@@ -29,13 +40,17 @@ class App extends React.Component {
         window.removeEventListener('keydown', this.openSettings);
     }
 
+    popUpSessionEditor(config,weaveInstance,title,isDb) {
+        ReactDOM.render( < weaveui.SessionEditor title={title} isDashboard={isDb} weave = {weaveInstance} keyPress = "true" settings = {config}/>,document.getElementById("popUp")
+                       );
+    }
 
 
     render() {
 
 
         return (<div>
-                    <weaveui.SessionEditor root={this.props.root} keyPress="true" settings={this.sessionConfig}/>
+                    <div id="popUp"/>
                     {this.props.children}
                 </div>
         );
